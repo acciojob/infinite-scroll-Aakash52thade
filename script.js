@@ -1,30 +1,21 @@
 const list = document.getElementById("infi-list");
 let count = 1;
 
-
-function addItem(n) {
-	for(let i=0; i<n; i++){
-		let item = document.createElement('li');
-		item.textContent = `item ${n}`;
-		list.appendChild(item);
-	}
+// Add n items
+function addItems(n) {
+  for (let i = 0; i < n; i++) {
+    const item = document.createElement("li");
+    item.textContent = `List Item ${count++}`;
+    list.appendChild(item);
+  }
 }
 
-window.addEventListner('scroll", () => {
-	const scrollTop = window.scrollY;		
-    const viewportHeight = window.innerHeight;
-    const fullHeight = document.documentElement.scrollHeight
-
-    if (scrollTop + windowHeight >= fullHeight - 10) {
-    addItems(2); // Add 2 new items
-  }
-});
+// Initial 10 items
 addItems(10);
 
-
-
-
-
-
-
-
+// Infinite scroll inside the list (not page)
+list.addEventListener("scroll", () => {
+  if (list.scrollTop + list.clientHeight >= list.scrollHeight - 5) {
+    addItems(2);
+  }
+});
